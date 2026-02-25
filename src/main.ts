@@ -15,6 +15,7 @@ const bejegyzesek: Bejegyzes[] = [
 
 function megjelenit() {
   const bejegyzesekContainer = document.getElementById("bejegyzesek") as HTMLElement;
+  bejegyzesekContainer.innerHTML = "";
   for (const bejegyzes of bejegyzesek) {
     const article = document.createElement("article");
     article.style.backgroundColor = bejegyzes.color;
@@ -30,6 +31,27 @@ function megjelenit() {
     bejegyzesekContainer.appendChild(article);
   }
 }
+
+document.getElementById("gomb")?.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  const titleInput = document.getElementById("title-input") as HTMLInputElement;
+  const contentInput = document.getElementById("content-input") as HTMLInputElement;
+  const colorInput = document.getElementById("color-input") as HTMLInputElement;
+
+  const bejegyzes = new Bejegyzes(
+    titleInput.value,
+    contentInput.value,
+    colorInput.value,
+  );
+  bejegyzesek.push(bejegyzes);
+  
+  titleInput.value = "";
+  contentInput.value = "";
+  colorInput.value = "";
+
+  megjelenit();
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   megjelenit();
